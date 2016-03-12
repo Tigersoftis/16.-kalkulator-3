@@ -3,16 +3,16 @@
 # include <math.h>  // funkcje pow, M_PI, M_E, exp, log,
 using namespace std;
 
-enum { dodawanie, odejmowanie, mnozenie, dzielenie, kwadrat, szescian, potega, pierwiastek, pi, e, exponenta,  logarytm, silnia, tworca, wyjscie }; 
-// enum - typ wyliczeniowy (przyporz¹dkowuje od 0 i kolejno 1, 2, 3 itd- nie musi miec nazwy
-
+enum { dodawanie, odejmowanie, mnozenie, dzielenie, srednia, kwadrat, szescian, potega, pierwiastek, pi, e, exponenta,  logarytm, silnia, tworca, wyjscie }; 
+/* enum - typ wyliczeniowy (przyporzÄ…dkowuje od 0 i kolejno 1, 2, 3 itd- nie musi miec nazwy - dobra praktyka jest podawanie nazw wielkimi literami)
+w enum i case - pozwala to uniknac pozniej wielu bledow, np gdy tak samo nazwiemy pozniej zmienna) */ 
 int main() 
 {
 double liczba1; 
-double liczba2; 
-int rodzaj_dzialania;// int - integer - liczba calkowita (bez przecinków)
-	unsigned int n; //z tej liczby bêdziemy liczyæ silniê (unsigned - liczby tylko dodatnie)
-	long long silnia = 1; //ta zmienna bêdzie przechowywaæ wynik silni
+double liczba2;  // double - duza liczba z przecinkami
+int rodzaj_dzialania;// int - integer - liczba calkowita (bez przecinkÃ³w)
+	int n; //z tej liczby bÄ™dziemy liczyÄ‡ silniÄ™ (unsigned - liczby tylko dodatnie - od zera w gore)
+	long long siln = 1; //ta zmienna bÄ™dzie przechowywaÄ‡ wynik silni
 
 cout << "\nWitaj w kalkulatorze, ktory pozwoli Ci wykonac kilka dzialan: \n\n";
 
@@ -24,18 +24,19 @@ while (true)
 	cout << "                          : [1]  - ODEJMOWANIE" << endl;
 	cout << "                          : [2]  - MNOZENIE" << endl;
 	cout << "                          : [3]  - DZIELENIE" << endl;
-	cout << "                          : [4]  - KWADRAT LICZBY" << endl;  
-	cout << "                          : [5]  - SZESCIAN LICZBY" << endl; 
-	cout << "                          : [6]  - POTEGOWANIE" << endl;
-	cout << "                          : [7]  - PIERWIASTEK KWADRATOWY" << endl;
-	cout << "                          : [8]  - LICZBA POMNOZONA PRZEZ LICZBE Pi" << endl;
-	cout << "                          : [9]  - LICZBA POMNOZONA PRZEZ LICZBE e (EULERA)" << endl;
-	cout << "                          : [10] - EXPONENTA [exp(x) = e^x]" << endl;
-	cout << "                          : [11] - LOGARYTM NATURALNY" << endl;
-	cout << "                          : [12] - SILNIA (n!)" << endl;
+	cout << "                          : [4]  - SREDNIA ARYTMETYCZNA" << endl;
+	cout << "                          : [5]  - KWADRAT LICZBY" << endl;  
+	cout << "                          : [6]  - SZESCIAN LICZBY" << endl; 
+	cout << "                          : [7]  - POTEGOWANIE" << endl;
+	cout << "                          : [8]  - PIERWIASTEK KWADRATOWY" << endl;
+	cout << "                          : [9]  - LICZBA POMNOZONA PRZEZ LICZBE Pi" << endl;
+	cout << "                          : [10] - LICZBA POMNOZONA PRZEZ LICZBE e (EULERA)" << endl;
+	cout << "                          : [11] - EXPONENTA [exp(x) = e^x]" << endl;
+	cout << "                          : [12] - LOGARYTM NATURALNY" << endl;
+	cout << "                          : [13] - SILNIA (n!)" << endl;
 	cout << "_________________________________________________" << endl; 
-	cout << "                          : [13] - Autor programu" << endl; 
-	cout << "                          : [14] - Wyjscie" << endl;
+	cout << "                          : [14] - Autor programu" << endl; 
+	cout << "                          : [15] - Wyjscie" << endl;
 	cout << endl << endl;
 
 cin >> rodzaj_dzialania;
@@ -95,15 +96,25 @@ switch (rodzaj_dzialania)
 							cin >> liczba2;
 							cout << endl << endl;
 							
-						if (liczba2 == 0) // dzieki temu warunkowi (je¿eli liczba2 = 0) przy dzieleniu przez zero nie wyskoczy b³¹d tylko...
+						if (liczba2 == 0) // dzieki temu warunkowi (jeÅ¼eli liczba2 = 0) przy dzieleniu przez zero nie wyskoczy bÅ‚Ä…d tylko...
 						{
-							cout << " Nie mozna dzielic przez zero!" << endl; break; //...tylko tekst, który tu wpisa³em
+							cout << " Nie mozna dzielic przez zero!" << endl; break; //...tylko tekst, ktÃ³ry tu wpisaÅ‚em
 						}
-						else // w przeciwnym razie (ni¿ liczba 2 = 0) uzyskam poni¿sze
+						else // w przeciwnym razie (niÅ¼ liczba 2 = 0) uzyskam poniÅ¼sze
 						{
 							cout << "Iloraz liczb wynosi: " << liczba1 / liczba2 << endl; break;
 						}
 	
+	case srednia: 	
+					cout << "Podaj 1 liczbe: ";
+					cin >> liczba1;
+					cout << endl; 
+
+					cout << "Podaj 2 liczbe: ";
+					cin >> liczba2;
+					cout << endl << endl;
+
+					cout << "Srednia arytmetyczna liczb wynosi: " << (liczba1 + liczba2)/2 << endl; break;
 	case kwadrat: 		
 						cout << "Podaj liczbe: ";
 						cin >> liczba1;
@@ -163,13 +174,29 @@ switch (rodzaj_dzialania)
 						cout << "Logarytm naturalny liczby " << liczba1 << " wynosi: " << log (liczba1) << endl; break;
 						
 	case silnia:    
-
-					cout << "Podaj n: ";
-					cin << n;
-					for(int i=n;i>1;i--) // w nawiasie: nadawanie pocz¹tkowych wartoœci zmiennym; warunek koñcz¹cy pêtlê for; zmniejszanie licznika petli
-    				silnia = silnia * i //lub silnia*=i
- 
-  					cout << n << "! = " << silnia << endl; break;
+					siln = 1;
+					cout << "Podaj nieujemna liczba calkowita: ";
+					cin >> n;
+				if (n>=0)
+				{
+					
+						for(int i=1;i<=n;i++) 
+// w nawiasie: nadawanie poczÄ…tkowych wartoÅ›ci zmiennym; warunek - dopuki bedzie spelniony petla bedzie wykonywana; zwiekszanie licznika petli
+    					siln = siln * i; //lub siln*=i
+// jeÅ¼eli nie dam {} petle dziaÅ‚ajÄ… do pierwszego ; 
+ 							if (siln <= 0)
+ 							{
+ 								cout << "\nNie moge obliczyc tak duzej silni! Podaj mniejsza liczbe." << endl; break;
+ 							}  
+							 else
+							 {
+							 	cout << endl << n << "! = " << siln << endl; break;
+							 }	
+				}
+				else
+				{
+					cout << "\nSilnia nie moze byc liczba ujemna." << endl; break;
+				}
 	
 	case tworca: 
 			cout << "       _______ __ _______ _______ _______"<< endl;
